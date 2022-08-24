@@ -23,6 +23,7 @@ class CurlCommand extends Command
             'timeout' => $this->option('connect-timeout'),
             'retry' => $this->option('retry'),
             'silent' => $this->option('silent'),
+            'user' => $this->option('user'),
             // TODO: map more options...
         ];
 
