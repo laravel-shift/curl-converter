@@ -2,17 +2,28 @@
 
 namespace App\Console\Commands;
 
+use App\Support\HttpCall;
 use Illuminate\Console\Command;
 
 class CurlCommand extends Command
 {
-    protected $signature = 'curl {--X|request=GET} {--H|header=*} {--d|data=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--retry=} {--s|silent} {--u|user=} {url}';
+    protected $signature = 'shift:curl {--X|request=GET} {--H|header=*} {--d|data=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--retry=} {--s|silent} {--u|user=} {url}';
 
-    protected $description = 'Parse UNIX curl command';
+    protected $description = 'Convert a UNIX curl request to an HTTP Client request';
 
     public function handle()
     {
-        $json = [
+        $request = \App\Models\Request::create($this->gatherOptions());
+        $code = HttpCall::format($request);
+
+        $this->line($code);
+
+        return 0;
+    }
+
+    private function gatherOptions()
+    {
+        return [
             'method' => $this->option('request'),
             'url' => $this->argument('url'),
             'headers' => $this->option('header'),
@@ -26,9 +37,5 @@ class CurlCommand extends Command
             'user' => $this->option('user'),
             // TODO: map more options...
         ];
-
-        $this->line(json_encode($json));
-
-        return 0;
     }
 }
