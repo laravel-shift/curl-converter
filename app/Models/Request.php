@@ -5,9 +5,13 @@ namespace App\Models;
 class Request
 {
     private string $url;
+
     private string $method;
+
     private array $headers = [];
+
     private array $data = [];
+
     private bool $multipartFormData = false;
 
     private function __construct($url, $method)
