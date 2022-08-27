@@ -1,1 +1,5 @@
-Http::post('https://example.com', ['foo' => 'bar', 'rho' => [1, 2], 'baz' => 'qui']);
+Http::post('https://example.com', [
+    'foo' => 'bar',
+    'rho' => [1, 2],
+    'baz' => 'qui',
+]);
