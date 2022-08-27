@@ -9,16 +9,8 @@ jobs:
           - ubuntu-latest
         php-version:
           - '8.0'
+          - '8.1'
     name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: test
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Checkout
@@ -48,9 +40,3 @@ jobs:
         run: php artisan key:generate
       - name: Run tests
         run: php artisan test
-        env:
-          DB_CONNECTION: mysql
-          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-          DB_USERNAME: root
-          DB_DATABASE: test
-          DB_PASSWORD: null
