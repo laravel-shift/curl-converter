@@ -25,20 +25,8 @@ class Request
         }
 
         if (!empty($data['data'])) {
-            dump($data['data']);
             // TODO: handle JSON payload
-            // -d 'foo=bar&qui[]=1' -d 'qui[]=2'
-            $request->data = collect($data['data'])
-                ->flatMap(function ($data) {
-                    $output = [];
-                    parse_str($data, $output);
-
-                    return $output;
-                })
-                ->all();
-
-            $dataAsArrays = array_map();
-            $data = array_merge_recursive(...$dataAsArrays);
+            parse_str(implode('&', $data['data']), $request->data);
         }
 
         if (!empty($data['fields'])) {
