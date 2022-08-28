@@ -23,7 +23,7 @@ class HttpCall
 
         if ($request->headers()) {
             // TODO: what about headers that have Http helper methods, for example: `acceptJson`
-            $options[] = 'withHeaders(' . var_export($request->headers(), true) . ')';
+            $options[] = 'withHeaders(' . self::prettyPrintArray($request->headers()) . ')';
         }
 
         if (empty($options)) {
@@ -39,6 +39,25 @@ class HttpCall
             return "'" . $request->url() . "'";
         }
 
-        return sprintf('\'%s\', %s', $request->url(), var_export($request->data(), true));
+        return sprintf('\'%s\', %s', $request->url(), self::prettyPrintArray($request->data()));
+    }
+
+    private static function prettyPrintArray(array $data, $assoc = true)
+    {
+        $output = var_export($data, true);
+        $patterns = [
+            "/array \(/" => '[',
+            "/^([ ]*)\)(,?)$/m" => '$1]$2',
+            "/=>[ ]?\n[ ]+\[/" => '=> [',
+            "/([ ]*)(\'[^\']+\') => ([\[\'])/" => '$1$2 => $3',
+        ];
+        $output = preg_replace('/^\s+/m', '        ', $output);
+        $output = preg_replace(['/^array \(/', '/\)$/'], ['[', '    ]'], $output);
+
+        if (!$assoc) {
+            $output = preg_replace('/^(\s+)[^=]+=>\s+/m', '$1', $output);
+        }
+
+        return trim(str_replace("\n", PHP_EOL, $output));
     }
 }
