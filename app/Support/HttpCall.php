@@ -22,13 +22,20 @@ class HttpCall
         $options = [];
 
         if (!empty($request->data()) && $request->method() !== 'GET') {
-            $options[] = $request->isJsonData() ? 'withBody(\'' . $request->data()[0] . '\')'
-                : 'asForm()';
+            if ($request->isMultipartFormData()) {
+                $options[] = 'asMultipart()';
+            } elseif ($request->isJsonData()) {
+                $options[] = 'withBody(\'' . $request->data()[0] . '\')';
+            } else {
+                $options[] = 'asForm()';
+            }
         }
 
-        if ($request->headers()) {
-            // TODO: what about headers that have Http helper methods, for example: `acceptJson`
-            $options[] = 'withHeaders(' . self::prettyPrintArray($request->headers()) . ')';
+        // TODO: filter out headers that have Http helper methods, for example: `acceptJson`
+        $headers = $request->headers();
+
+        if ($headers) {
+            $options[] = 'withHeaders(' . self::prettyPrintArray($headers) . ')';
         }
 
         if (empty($options)) {

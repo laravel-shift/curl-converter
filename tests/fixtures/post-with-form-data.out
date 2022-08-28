@@ -1,0 +1,6 @@
+Http::asMultipart()
+    ->post('https://example.com', [
+        'foo' => 'bar',
+        'rho' => [1, 2],
+        'baz' => 'qui',
+    ]);

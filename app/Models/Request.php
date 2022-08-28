@@ -43,17 +43,12 @@ class Request
                 $request->data = $data['data'];
                 $request->jsonData = true;
             } else {
-                parse_str(implode('&', $data['data']), $request->data);
-                array_walk_recursive($request->data, function (&$value) {
-                    if (is_string($value)) {
-                        $value = self::convertDataType($value);
-                    }
-                });
+                $request->data = self::parseData($data['data']);
             }
         }
 
         if (!empty($data['fields'])) {
-            $request->data = $data['fields'];
+            $request->data = self::parseData($data['data']);
             $request->multipartFormData = true;
         }
 
@@ -93,5 +88,17 @@ class Request
     private static function convertDataType(string $value)
     {
         return preg_match('/^[1-9]\d*$/', $value) ? intval($value) : $value;
+    }
+
+    private static function parseData(array $data): array
+    {
+        parse_str(implode('&', $data), $data);
+        array_walk_recursive($data, function (&$value) {
+            if (is_string($value)) {
+                $value = self::convertDataType($value);
+            }
+        });
+
+        return $data;
     }
 }
