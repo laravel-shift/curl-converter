@@ -44,11 +44,15 @@ class HttpCall
 
     private static function prettyPrintArray(array $data, $assoc = true)
     {
-        echo json_encode($data);
-
         $output = var_export($data, true);
-        $output = preg_replace('/^\s+/m', '    ', $output);
-        $output = preg_replace(['/^array\s\(/', '/\)$/'], ['[', ']'], $output);
+        $patterns = [
+            "/array \(/" => '[',
+            "/^([ ]*)\)(,?)$/m" => '$1]$2',
+            "/=>[ ]?\n[ ]+\[/" => '=> [',
+            "/([ ]*)(\'[^\']+\') => ([\[\'])/" => '$1$2 => $3',
+        ];
+        $output = preg_replace('/^\s+/m', '        ', $output);
+        $output = preg_replace(['/^array \(/', '/\)$/'], ['[', '    ]'], $output);
 
         if (!$assoc) {
             $output = preg_replace('/^(\s+)[^=]+=>\s+/m', '$1', $output);
