@@ -1,0 +1,5 @@
+Http::withHeaders([
+        'X-Header-One' => 1,
+        'X-Header-Two' => 2,
+    ])
+    ->get('https://example.com');

@@ -1,5 +1,6 @@
-Http::post('https://example.com', [
-    'foo' => 'bar',
-    'rho' => [1, 2],
-    'baz' => 'qui',
-]);
+Http::asForm()
+    ->post('https://example.com', [
+        'foo' => 'bar',
+        'rho' => [1, 2],
+        'baz' => 'qui',
+    ]);

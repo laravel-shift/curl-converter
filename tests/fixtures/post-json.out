@@ -1,0 +1,2 @@
+Http::withBody('{"foo":"bar"}')
+    ->post('https://example.com');

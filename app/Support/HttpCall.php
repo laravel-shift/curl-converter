@@ -21,6 +21,11 @@ class HttpCall
     {
         $options = [];
 
+        if (!empty($request->data()) && $request->method() !== 'GET') {
+            $options[] = $request->isJsonData() ? 'withBody(\'' . $request->data()[0] . '\')'
+                : 'asForm()';
+        }
+
         if ($request->headers()) {
             // TODO: what about headers that have Http helper methods, for example: `acceptJson`
             $options[] = 'withHeaders(' . self::prettyPrintArray($request->headers()) . ')';
@@ -35,7 +40,7 @@ class HttpCall
 
     private static function generateRequest(Request $request): string
     {
-        if (empty($request->data())) {
+        if (empty($request->data()) || $request->isJsonData()) {
             return "'" . $request->url() . "'";
         }
 

@@ -1,0 +1,1 @@
+curl -H "X-Header-One: 1" -H 'X-Header-Two: 2' https://example.com

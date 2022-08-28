@@ -26,6 +26,8 @@ class CurlCommandTest extends TestCase
             'GET request' => ['basic-get'],
             'POST request' => ['basic-post'],
             'POST request with multiple data' => ['post-with-multiple-data'],
+            'POST request with JSON data' => ['post-json'],
+            'GET request with headers' => ['with-headers'],
         ];
     }
 }
