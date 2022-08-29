@@ -1,0 +1,1 @@
+curl -s -X POST --user 'api:0987654321' https://api.mailgun.net/v3/example.com/messages -F from='Excited User <mailgun@YOUR_DOMAIN_NAME>' -F to=YOU@YOUR_DOMAIN_NAME -F to=bar@example.com -F subject='Hello' -F text='Testing some Mailgun awesomeness!'

@@ -1,0 +1,1 @@
+curl -H 'Accept: application/json' -d 'format=json' https://example.com

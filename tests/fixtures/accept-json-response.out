@@ -1,0 +1,4 @@
+Http::acceptJson()
+    ->get('https://example.com' [
+        'format' => 'json',
+    ]);

@@ -1,0 +1,1 @@
+curl -X POST https://api.stripe.com/v1/charges -u sk_test_sjp0J5IpIZ4o7L0OtmCW3s7p: -d amount=2000 -d currency=usd -d source=tok_visa -d "metadata[order_id]"=6735

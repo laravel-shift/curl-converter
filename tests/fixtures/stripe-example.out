@@ -1,0 +1,8 @@
+Http::asForm()
+    ->withBasicAuth('sk_test_sjp0J5IpIZ4o7L0OtmCW3s7p')
+    ->post('https://api.stripe.com/v1/charges', [
+        'amount' => 2000,
+        'currency' => 'usd',
+        'source' => 'tok_visa',
+        'metadata[order_id]' => 6735,
+     ]);
