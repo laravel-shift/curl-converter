@@ -4,5 +4,7 @@ Http::asForm()
         'amount' => 2000,
         'currency' => 'usd',
         'source' => 'tok_visa',
-        'metadata[order_id]' => 6735,
-     ]);
+        'metadata' => [
+            'order_id' => 6735,
+        ],
+    ]);

@@ -2,7 +2,10 @@ Http::asMultipart()
     ->withBasicAuth('api', '0987654321')
     ->post('https://api.mailgun.net/v3/example.com/messages', [
         'from' => 'Excited User <mailgun@YOUR_DOMAIN_NAME>',
-        'to' => ['YOU@YOUR_DOMAIN_NAME', 'bar@example.com'],
+        'to' => [
+            'YOU@YOUR_DOMAIN_NAME',
+            'bar@example.com',
+        ],
         'subject' => 'Hello',
         'text' => 'Testing some Mailgun awesomeness!',
     ]);

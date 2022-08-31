@@ -4,6 +4,7 @@ namespace App\Support;
 
 use App\Models\Request;
 use Illuminate\Support\Str;
+use Symfony\Component\VarExporter\VarExporter;
 
 class HttpCall
 {
@@ -94,24 +95,8 @@ class HttpCall
         return sprintf('\'%s\', %s', $request->url(), self::prettyPrintArray($request->data()));
     }
 
-    private static function prettyPrintArray(array $data, $assoc = true)
+    private static function prettyPrintArray(array $data)
     {
-        $output = var_export($data, true);
-//        $patterns = [
-//            "/array \(/" => '[',
-//            "/^([ ]*)\)(,?)$/m" => '$1]$2',
-//            "/=>[ ]?\n[ ]+\[/" => '=> [',
-//            "/([ ]*)(\'[^\']+\') => ([\[\'])/" => '$1$2 => $3',
-//            "/([ ]*)\d+ => ([\[\'])/" => '$1$2',
-//        ];
-//        $output = preg_replace(array_keys($patterns), $patterns, $output);
-        $output = preg_replace('/^\s+/m', '        ', $output);
-        $output = preg_replace(['/^array \(/', '/\)$/'], ['[', '    ]'], $output);
-
-        if (!$assoc) {
-            $output = preg_replace('/^(\s+)[^=]+=>\s+/m', '$1', $output);
-        }
-
-        return trim(str_replace("\n", PHP_EOL, $output));
+        return trim(preg_replace('/^/m', '    ', VarExporter::export($data)));
     }
 }
