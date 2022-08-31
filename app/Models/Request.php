@@ -25,7 +25,7 @@ class Request
     private function __construct($url, $method)
     {
         $this->url = $url;
-        $this->method = strtoupper($method);
+        $this->method = Str::upper($method);
     }
 
     public static function create(array $data): self
@@ -54,6 +54,10 @@ class Request
         if (!empty($data['fields'])) {
             $request->data = self::parseData($data['fields']);
             $request->multipartFormData = true;
+        }
+
+        if (!empty($request->data) && $request->method === 'GET') {
+            $request->method = 'POST';
         }
 
         if ($data['user']) {

@@ -1,0 +1,1 @@
+curl -H 'Content-Type: application/x-www-form-urlencoded' -d 'foo=bar&baz=qui' https://example.com

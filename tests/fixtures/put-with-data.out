@@ -1,0 +1,5 @@
+Http::asForm()
+    ->put('https://example.com', [
+        'foo' => 'bar',
+        'baz' => 'qui',
+    ]);

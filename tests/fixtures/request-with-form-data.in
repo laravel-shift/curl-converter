@@ -1,0 +1,1 @@
+curl -H 'Content-Type: multipart/form-data' -F 'foo=bar' https://example.com

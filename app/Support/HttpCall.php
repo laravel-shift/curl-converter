@@ -39,11 +39,17 @@ class HttpCall
             ->all();
     }
 
-    private static function filterHeaders(array $headers): array
+    private static function filterHeaders(Request $request): array
     {
-        return collect($headers)
-            ->reject(function ($value, $header) {
-                // has header to match multipart or ascii form data
+        return collect($request->headers())
+            ->reject(function ($value, $header) use ($request) {
+                if ($request->data() && $header === 'Content-Type') {
+                    if ($request->isMultipartFormData() && Str::lower($value) === 'multipart/form-data') {
+                        return true;
+                    } elseif (Str::lower($value) === 'application/x-www-form-urlencoded') {
+                        return true;
+                    }
+                }
 
                 if ($header === 'Content-Type' && Str::lower($value) === 'application/json') {
                     return true;
@@ -68,7 +74,7 @@ class HttpCall
             }
         }
 
-        $headers = self::filterHeaders($request->headers());
+        $headers = self::filterHeaders($request);
         $headers = self::collapseHelpers($headers, $options);
 
         if ($request->hasUsernameOrPassword()) {
