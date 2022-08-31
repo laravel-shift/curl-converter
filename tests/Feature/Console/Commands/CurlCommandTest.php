@@ -29,7 +29,6 @@ class CurlCommandTest extends TestCase
             'POST request with JSON data' => ['post-json'],
             'POST request with multipart/form-data' => ['post-with-form-data'],
             'GET request with headers' => ['with-headers'],
-            'JSON request with content type' => ['json-with-content-type'],
             'Mailgun example request' => ['mailgun-example'],
             'Digital Ocean example request' => ['digital-ocean-example'],
             'Stripe example request' => ['stripe-example'],

@@ -17,6 +17,42 @@ class HttpCall
         );
     }
 
+    private static function collapseHelpers(array $headers, array &$options): array
+    {
+        return collect($headers)
+            ->reject(function ($value, $header) use (&$options) {
+                if ($header === 'Accept' && Str::lower($value) === 'application/json') {
+                    $options[] = 'acceptJson()';
+
+                    return true;
+                }
+
+                if ($header === 'Authorization' && Str::of($value)->lower()->startsWith('bearer ')) {
+                    $options[] = 'withToken(\'' . substr($value, 7) . '\')';
+
+                    return true;
+                }
+
+                return false;
+            })
+            ->all();
+    }
+
+    private static function filterHeaders(array $headers): array
+    {
+        return collect($headers)
+            ->reject(function ($value, $header) {
+                // has header to match multipart or ascii form data
+
+                if ($header === 'Content-Type' && Str::lower($value) === 'application/json') {
+                    return true;
+                }
+
+                return false;
+            })
+            ->all();
+    }
+
     private static function generateOptions(Request $request): string
     {
         $options = [];
@@ -31,8 +67,12 @@ class HttpCall
             }
         }
 
-        // TODO: filter out headers that have Http helper methods, for example: `acceptJson`
-        $headers = $request->headers();
+        $headers = self::filterHeaders($request->headers());
+        $headers = self::collapseHelpers($headers, $options);
+
+        if ($request->hasUsernameOrPassword()) {
+            $options[] = 'withBasicAuth(\'' . $request->username() . '\', \'' . $request->password() . '\')';
+        }
 
         if ($headers) {
             $options[] = 'withHeaders(' . self::prettyPrintArray($headers) . ')';
@@ -57,12 +97,14 @@ class HttpCall
     private static function prettyPrintArray(array $data, $assoc = true)
     {
         $output = var_export($data, true);
-        $patterns = [
-            "/array \(/" => '[',
-            "/^([ ]*)\)(,?)$/m" => '$1]$2',
-            "/=>[ ]?\n[ ]+\[/" => '=> [',
-            "/([ ]*)(\'[^\']+\') => ([\[\'])/" => '$1$2 => $3',
-        ];
+//        $patterns = [
+//            "/array \(/" => '[',
+//            "/^([ ]*)\)(,?)$/m" => '$1]$2',
+//            "/=>[ ]?\n[ ]+\[/" => '=> [',
+//            "/([ ]*)(\'[^\']+\') => ([\[\'])/" => '$1$2 => $3',
+//            "/([ ]*)\d+ => ([\[\'])/" => '$1$2',
+//        ];
+//        $output = preg_replace(array_keys($patterns), $patterns, $output);
         $output = preg_replace('/^\s+/m', '        ', $output);
         $output = preg_replace(['/^array \(/', '/\)$/'], ['[', '    ]'], $output);
 

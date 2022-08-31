@@ -18,6 +18,10 @@ class Request
 
     private bool $multipartFormData = false;
 
+    private ?string $username = null;
+
+    private ?string $password = null;
+
     private function __construct($url, $method)
     {
         $this->url = $url;
@@ -48,8 +52,12 @@ class Request
         }
 
         if (!empty($data['fields'])) {
-            $request->data = self::parseData($data['data']);
+            $request->data = self::parseData($data['fields']);
             $request->multipartFormData = true;
+        }
+
+        if ($data['user']) {
+            [$request->username, $request->password] = explode(':', $data['user'], 2);
         }
 
         return $request;
@@ -58,6 +66,11 @@ class Request
     public function data(): array
     {
         return $this->data;
+    }
+
+    public function hasUsernameOrPassword(): bool
+    {
+        return isset($this->username) || isset($this->password);
     }
 
     public function headers(): array
@@ -83,6 +96,16 @@ class Request
     public function isMultipartFormData(): bool
     {
         return $this->multipartFormData;
+    }
+
+    public function username(): string
+    {
+        return $this->username ?? '';
+    }
+
+    public function password(): string
+    {
+        return $this->password ?? '';
     }
 
     private static function convertDataType(string $value)
