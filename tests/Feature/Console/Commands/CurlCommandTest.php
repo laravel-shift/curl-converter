@@ -33,6 +33,7 @@ class CurlCommandTest extends TestCase
             'Request with collapsable headers' => ['with-collapsable-headers'],
             'PUT request with data' => ['put-with-data'],
             'GET request with headers' => ['with-headers'],
+            'GET request with query string' => ['with-query-string'],
             'Mailgun example request' => ['mailgun-example'],
             'Digital Ocean example request' => ['digital-ocean-example'],
             'Stripe example request' => ['stripe-example'],

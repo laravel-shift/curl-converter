@@ -30,7 +30,13 @@ class Request
 
     public static function create(array $data): self
     {
-        $request = new self($data['url'], $data['method']);
+        $url = parse_url($data['url']);
+
+        $request = new self(self::buildUrl($url), $data['method']);
+
+        if (isset($url['query'])) {
+            parse_str($url['query'], $request->data);
+        }
 
         if (!empty($data['headers'])) {
             $request->headers = collect($data['headers'])
@@ -127,5 +133,20 @@ class Request
         });
 
         return $data;
+    }
+
+    private static function buildUrl(array $url): string
+    {
+        $output = $url['scheme'] . '://' . $url['host'];
+
+        if (isset($url['port'])) {
+            $output .= ':' . $url['port'];
+        }
+
+        if (isset($url['path'])) {
+            $output .= $url['path'];
+        }
+
+        return $output;
     }
 }

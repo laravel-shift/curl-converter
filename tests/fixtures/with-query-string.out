@@ -1,0 +1,9 @@
+Http::get('https://api.postmarkapp.com/messages/outbound', [
+        'recipient' => 'john.doe@yahoo.com',
+        'count' => '50',
+        'offset' => '0',
+        'tag' => 'welcome',
+        'status' => 'sent',
+        'todate' => '2015-01-12',
+        'fromdate' => '2015-01-01',
+    ]);
