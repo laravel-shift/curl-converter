@@ -16,5 +16,3 @@ yarn-error.log
 /.vscode
 composer.lock
 docker-compose.yml
-/storage/logs
-/bootstrap/cache
