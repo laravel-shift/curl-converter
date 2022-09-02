@@ -29,7 +29,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Shift\\CurlConverter\\ServiceProvider"
+                "Shift\\CurlConverter\\Providers\\ServiceProvider"
             ]
         }
     },
