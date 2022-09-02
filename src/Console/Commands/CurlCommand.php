@@ -2,8 +2,8 @@
 
 namespace Shift\CurlConverter\Console\Commands;
 
-use Shift\CurlConverter\Support\HttpCall;
 use Illuminate\Console\Command;
+use Shift\CurlConverter\Support\HttpCall;
 
 class CurlCommand extends Command
 {

@@ -62,7 +62,7 @@ class Request
             $request->multipartFormData = true;
         }
 
-        if (!empty($request->data) && $request->method === 'GET') {
+        if ($request->method === 'GET' && (!empty($data['data']) || !empty($data['fields']))) {
             $request->method = 'POST';
         }
 

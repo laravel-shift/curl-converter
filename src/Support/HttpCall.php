@@ -2,8 +2,8 @@
 
 namespace Shift\CurlConverter\Support;
 
-use Shift\CurlConverter\Models\Request;
 use Illuminate\Support\Str;
+use Shift\CurlConverter\Models\Request;
 use Symfony\Component\VarExporter\VarExporter;
 
 class HttpCall
