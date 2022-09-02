@@ -22,6 +22,10 @@ class Request
 
     private ?string $password = null;
 
+    private ?int $maxTimeout = null;
+
+    private ?int $connectTimeout = null;
+
     private function __construct($url, $method)
     {
         $this->url = $url;
@@ -70,6 +74,14 @@ class Request
             [$request->username, $request->password] = explode(':', $data['user'], 2);
         }
 
+        if ($data['maxTimeout']) {
+            $request->maxTimeout = $data['maxTimeout'];
+        }
+
+        if ($data['connectTimeout']) {
+            $request->connectTimeout = $data['connectTimeout'];
+        }
+
         return $request;
     }
 
@@ -81,6 +93,16 @@ class Request
     public function hasUsernameOrPassword(): bool
     {
         return isset($this->username) || isset($this->password);
+    }
+
+    public function hasMaxTimeout(): bool
+    {
+        return isset($this->maxTimeout);
+    }
+
+    public function hasConnectTimeout(): bool
+    {
+        return isset($this->connectTimeout);
     }
 
     public function headers(): array
@@ -116,6 +138,16 @@ class Request
     public function password(): string
     {
         return $this->password ?? '';
+    }
+
+    public function maxTimeout(): int
+    {
+        return $this->maxTimeout;
+    }
+
+    public function connectTimeout(): int
+    {
+        return $this->connectTimeout;
     }
 
     private static function convertDataType(string $value)
