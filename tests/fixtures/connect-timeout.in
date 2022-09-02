@@ -1,0 +1,1 @@
+curl --connect-timeout 5 https://example.com

@@ -1,0 +1,2 @@
+Http::connectTimeout(5)
+    ->get('https://example.com');

@@ -85,6 +85,14 @@ class HttpCall
             $options[] = 'withHeaders(' . self::prettyPrintArray($headers) . ')';
         }
 
+        if (!empty($request->hasMaxTimeout())) {
+            $options[] = 'timeout(' . $request->maxTimeout() . ')';
+        }
+
+        if (!empty($request->hasConnectTimeout())) {
+            $options[] = 'connectTimeout(' . $request->connectTimeout() . ')';
+        }
+
         if (empty($options)) {
             return '';
         }
