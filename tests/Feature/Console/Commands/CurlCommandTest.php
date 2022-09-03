@@ -13,11 +13,11 @@ class CurlCommandTest extends TestCase
      */
     public function it_converts_curl_requests_to_http_client_code($fixture)
     {
-        $code = Artisan::call('shift:' . trim(file_get_contents('tests/fixtures/' . $fixture . '.in')));
-        $output = Artisan::output();
+        $code = Artisan::call('shift:' . $this->fixture($fixture . '.in'));
+        $output = trim(Artisan::output());
 
         $this->assertSame(0, $code);
-        $this->assertSame(file_get_contents('tests/fixtures/' . $fixture . '.out'), $output);
+        $this->assertSame($this->fixture($fixture . '.out'), $output);
     }
 
     public function curlCommandFixtures()
@@ -40,5 +40,10 @@ class CurlCommandTest extends TestCase
             'Initial connection timeout' => ['connect-timeout'],
             'Entire transaction timeout' => ['max-timeout'],
         ];
+    }
+
+    private function fixture(string $fixture)
+    {
+        return trim(file_get_contents('tests/fixtures/' . $fixture));
     }
 }
