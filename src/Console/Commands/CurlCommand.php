@@ -16,7 +16,9 @@ class CurlCommand extends Command
         $request = \Shift\CurlConverter\Models\Request::create($this->gatherOptions());
         $code = HttpCall::format($request);
 
+        $this->newLine();
         $this->line($code);
+        $this->newLine();
 
         return 0;
     }
