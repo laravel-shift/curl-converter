@@ -1,0 +1,4 @@
+Http::withBasicAuth('sk_test_sabcdef0987654321', '')
+    ->get('https://api.stripe.com/v1/customers/search', [
+        'query' => 'name:\'fakename\' AND metadata[\'foo\']:\'bar\'',
+    ]);

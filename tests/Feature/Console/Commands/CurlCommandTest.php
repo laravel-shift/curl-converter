@@ -37,6 +37,7 @@ class CurlCommandTest extends TestCase
             'Mailgun example request' => ['mailgun-example'],
             'Digital Ocean example request' => ['digital-ocean-example'],
             'Stripe example request' => ['stripe-example'],
+            'Stripe query params' => ['stripe-query-params'],
             'Initial connection timeout' => ['connect-timeout'],
             'Entire transaction timeout' => ['max-timeout'],
         ];

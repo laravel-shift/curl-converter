@@ -1,0 +1,1 @@
+curl https://api.stripe.com/v1/customers/search -u sk_test_sabcdef0987654321: --data-urlencode query="name:'fakename' AND metadata['foo']:'bar'" -G

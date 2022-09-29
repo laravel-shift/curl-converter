@@ -36,7 +36,7 @@ class Request
     {
         $url = parse_url($data['url']);
 
-        $request = new self(self::buildUrl($url), $data['method']);
+        $request = new self(self::buildUrl($url), $data['method'] ?? 'GET');
 
         if (isset($url['query'])) {
             parse_str($url['query'], $request->data);
@@ -66,7 +66,11 @@ class Request
             $request->multipartFormData = true;
         }
 
-        if ($request->method === 'GET' && (!empty($data['data']) || !empty($data['fields']))) {
+        if (!empty($data['dataUrlEncode'])) {
+            $request->data = self::parseData($data['dataUrlEncode']);
+        }
+
+        if (is_null($data['method']) && (!empty($data['data']) || !empty($data['fields']))) {
             $request->method = 'POST';
         }
 
