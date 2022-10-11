@@ -173,7 +173,7 @@ class Request
 
     private static function buildUrl(array $url): string
     {
-        $output = $url['scheme'] . '://' . $url['host'];
+        $output = ($url['scheme'] ?? 'https') . '://' . ($url['host'] ?? '');
 
         if (isset($url['port'])) {
             $output .= ':' . $url['port'];

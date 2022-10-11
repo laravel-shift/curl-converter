@@ -41,6 +41,7 @@ class CurlCommandTest extends TestCase
             'Initial connection timeout' => ['connect-timeout'],
             'Entire transaction timeout' => ['max-timeout'],
             'Ignore location flag' => ['ignore-location-flag'],
+            'Missing URL scheme' => ['missing-url-scheme'],
         ];
     }
 
