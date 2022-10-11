@@ -40,6 +40,7 @@ class CurlCommandTest extends TestCase
             'Stripe query params' => ['stripe-query-params'],
             'Initial connection timeout' => ['connect-timeout'],
             'Entire transaction timeout' => ['max-timeout'],
+            'Ignore location flag' => ['ignore-location-flag'],
         ];
     }
 
