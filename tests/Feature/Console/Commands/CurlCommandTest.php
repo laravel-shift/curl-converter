@@ -20,18 +20,6 @@ class CurlCommandTest extends TestCase
         $this->assertSame($this->fixture($fixture . '.out'), $output);
     }
 
-    /**
-     * @test
-     *
-     * The "--location" flag tells cURL to follow any redirects.
-     * This is the default behaviour for Laravel's Http client so it can be safely ignored.
-     */
-    public function the_location_curl_flag_can_be_ignored()
-    {
-        $this->artisan('shift:curl --location http://laravel.com')->assertSuccessful();
-        $this->artisan('shift:curl -L http://laravel.com')->assertSuccessful();
-    }
-
     public function curlCommandFixtures()
     {
         return [
@@ -52,6 +40,7 @@ class CurlCommandTest extends TestCase
             'Stripe query params' => ['stripe-query-params'],
             'Initial connection timeout' => ['connect-timeout'],
             'Entire transaction timeout' => ['max-timeout'],
+            'Ignore location flag' => ['ignore-location-flag'],
         ];
     }
 
