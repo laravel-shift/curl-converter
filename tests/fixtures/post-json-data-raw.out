@@ -1,0 +1,2 @@
+Http::withBody('{"messages": ["a","b","c"]}')
+    ->post('https://api.com');
