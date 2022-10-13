@@ -27,6 +27,7 @@ class CurlCommandTest extends TestCase
             'POST request' => ['basic-post'],
             'POST request with data' => ['post-with-data'],
             'POST request with JSON data' => ['post-json'],
+            'POST request with JSON data-raw' => ['post-json-data-raw'],
             'POST request with multipart/form-data' => ['post-with-form-data'],
             'Request with data defaults to POST' => ['request-with-data'],
             'Request with form fields defaults to POST' => ['request-with-form-data'],
