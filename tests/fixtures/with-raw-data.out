@@ -1,0 +1,9 @@
+Http::withBody('{
+    "messages": [
+        "a",
+        "b",
+        "c"
+    ]
+}')
+    ->acceptJson()
+    ->post('https://api.com');

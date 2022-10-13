@@ -14,7 +14,7 @@ class Request
 
     private array $data = [];
 
-    private bool $jsonData = false;
+    private bool $rawData = false;
 
     private bool $multipartFormData = false;
 
@@ -52,12 +52,25 @@ class Request
                 ->all();
         }
 
+        if (!empty($data['dataUrlEncode'])) {
+            $request->data = array_merge($request->data, self::parseData($data['dataUrlEncode']));
+        }
+
+        if (!empty($data['rawData'])) {
+            if (count($data['rawData']) === 1 && empty($data['data']) && empty($data['dataUrlEncode'])) {
+                $request->data = $data['rawData'];
+                $request->rawData = true;
+            } else {
+                $request->data = array_merge($request->data, self::parseData($data['rawData']));
+            }
+        }
+
         if (!empty($data['data'])) {
             if (count($data['data']) === 1 && Str::startsWith($data['data'][0], '{')) {
                 $request->data = $data['data'];
-                $request->jsonData = true;
+                $request->rawData = true;
             } else {
-                $request->data = self::parseData($data['data']);
+                $request->data = array_merge($request->data, self::parseData($data['data']));
             }
         }
 
@@ -66,11 +79,7 @@ class Request
             $request->multipartFormData = true;
         }
 
-        if (!empty($data['dataUrlEncode'])) {
-            $request->data = self::parseData($data['dataUrlEncode']);
-        }
-
-        if (is_null($data['method']) && (!empty($data['data']) || !empty($data['fields']))) {
+        if (is_null($data['method']) && (!empty($data['rawData']) || !empty($data['data']) || !empty($data['fields'] ))) {
             $request->method = 'POST';
         }
 
@@ -114,9 +123,9 @@ class Request
         return $this->headers;
     }
 
-    public function isJsonData(): bool
+    public function isRawData(): bool
     {
-        return $this->jsonData;
+        return $this->rawData;
     }
 
     public function method(): string

@@ -7,7 +7,7 @@ use Shift\CurlConverter\Support\HttpCall;
 
 class CurlCommand extends Command
 {
-    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|silent} {--u|user=} {--L|location} {--compressed} {--insecure} {url}';
+    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--data-raw=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|silent} {--u|user=} {--L|location} {--compressed} {--insecure} {url}';
 
     protected $description = 'Convert a UNIX curl request to an HTTP Client request';
 
@@ -30,6 +30,7 @@ class CurlCommand extends Command
             'url' => $this->argument('url'),
             'headers' => $this->option('header'),
             'data' => $this->option('data'),
+            'rawData' => $this->option('data-raw'),
             'dataUrlEncode' => $this->option('data-urlencode'),
             'fields' => $this->option('form'),
             'digest' => $this->option('digest'),

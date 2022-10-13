@@ -1,0 +1,6 @@
+Http::asForm()
+    ->acceptJson()
+    ->post('https://api.com', [
+        'some' => 'data',
+        'foo' => 'bar',
+    ]);

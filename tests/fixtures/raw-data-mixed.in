@@ -1,0 +1,1 @@
+curl --request POST 'https://api.com' --header 'Accept: application/json' --data-raw 'some=data' -d foo=bar

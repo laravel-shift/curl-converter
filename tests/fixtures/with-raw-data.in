@@ -1,0 +1,7 @@
+curl 'https://api.com' --header 'Accept: application/json' --header 'Content-Type: application/json' --data-raw '{
+    "messages": [
+        "a",
+        "b",
+        "c"
+    ]
+}'

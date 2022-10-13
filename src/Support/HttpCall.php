@@ -67,8 +67,8 @@ class HttpCall
         if (!empty($request->data()) && $request->method() !== 'GET') {
             if ($request->isMultipartFormData()) {
                 $options[] = 'asMultipart()';
-            } elseif ($request->isJsonData()) {
-                $options[] = 'withBody(\'' . $request->data()[0] . '\')';
+            } elseif ($request->isRawData()) {
+                $options[] = 'withBody(\'' . current($request->data()) . '\')';
             } else {
                 $options[] = 'asForm()';
             }
@@ -102,7 +102,7 @@ class HttpCall
 
     private static function generateRequest(Request $request): string
     {
-        if (empty($request->data()) || $request->isJsonData()) {
+        if (empty($request->data()) || $request->isRawData()) {
             return "'" . $request->url() . "'";
         }
 
