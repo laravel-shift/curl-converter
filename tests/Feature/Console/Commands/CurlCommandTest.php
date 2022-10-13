@@ -43,8 +43,8 @@ class CurlCommandTest extends TestCase
             'Entire transaction timeout' => ['max-timeout'],
             'Ignore location flag' => ['ignore-location-flag'],
             'Missing URL scheme' => ['missing-url-scheme'],
-            'GET request with compressed flag' => ['with-compressed-option'],
-            'GET request with compressed flag' => ['with-insecure-option'],
+            'GET request with compressed option' => ['with-compressed-option'],
+            'GET request with insecure option' => ['with-insecure-option'],
         ];
     }
 
