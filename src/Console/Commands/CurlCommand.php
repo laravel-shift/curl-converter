@@ -7,7 +7,7 @@ use Shift\CurlConverter\Support\HttpCall;
 
 class CurlCommand extends Command
 {
-    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-raw=*} {--data-urlencode=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|silent} {--u|user=} {--L|location} {--compressed} {--insecure} {url}';
+    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|silent} {--u|user=} {--L|location} {--compressed} {--insecure} {url}';
 
     protected $description = 'Convert a UNIX curl request to an HTTP Client request';
 
@@ -29,7 +29,7 @@ class CurlCommand extends Command
             'method' => $this->option('get') ? 'GET' : $this->option('request'),
             'url' => $this->argument('url'),
             'headers' => $this->option('header'),
-            'data' => count($this->option('data-raw')) > 0 ? $this->option('data-raw') : $this->option('data'),
+            'data' => $this->option('data'),
             'dataUrlEncode' => $this->option('data-urlencode'),
             'fields' => $this->option('form'),
             'digest' => $this->option('digest'),
