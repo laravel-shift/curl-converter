@@ -7,11 +7,7 @@ use Shift\CurlConverter\Support\HttpCall;
 
 class CurlCommand extends Command
 {
-<<<<<<< HEAD
     protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-raw=*} {--data-urlencode=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|silent} {--u|user=} {--L|location} {--compressed} {--insecure} {url}';
-=======
-    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|silent} {--u|user=} {--L|location} {--compressed} {--insecure} {url}';
->>>>>>> c011a2e05fafd6855afced0cf99bd8c3ad5d2016
 
     protected $description = 'Convert a UNIX curl request to an HTTP Client request';
 
