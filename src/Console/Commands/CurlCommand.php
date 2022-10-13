@@ -13,7 +13,6 @@ class CurlCommand extends Command
 
     public function handle()
     {
-        // dd($this->gatherOptions());
         $request = \Shift\CurlConverter\Models\Request::create($this->gatherOptions());
         $code = HttpCall::format($request);
 
