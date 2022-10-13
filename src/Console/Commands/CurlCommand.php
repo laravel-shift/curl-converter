@@ -40,7 +40,7 @@ class CurlCommand extends Command
             'silent' => $this->option('silent'),
             'user' => $this->option('user'),
             'compressed' => $this->option('compressed'),
-            'insecure' => $this->option('insecure')
+            'insecure' => $this->option('insecure'),
         ];
     }
 }
