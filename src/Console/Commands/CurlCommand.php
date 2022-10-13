@@ -7,12 +7,13 @@ use Shift\CurlConverter\Support\HttpCall;
 
 class CurlCommand extends Command
 {
-    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|silent} {--u|user=} {--L|location} {url}';
+    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|silent} {--u|user=} {--L|location} {--compressed} {--insecure} {url}';
 
     protected $description = 'Convert a UNIX curl request to an HTTP Client request';
 
     public function handle()
     {
+        // dd($this->gatherOptions());
         $request = \Shift\CurlConverter\Models\Request::create($this->gatherOptions());
         $code = HttpCall::format($request);
 
@@ -39,6 +40,8 @@ class CurlCommand extends Command
             'retry' => $this->option('retry'),
             'silent' => $this->option('silent'),
             'user' => $this->option('user'),
+            'compressed' => $this->option('compressed'),
+            'insecure' => $this->option('insecure')
         ];
     }
 }
