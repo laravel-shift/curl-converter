@@ -1,1 +1,0 @@
-curl -X POST --header 'Content-Type: application/json' --data-raw '{"messages": ["a","b","c"]}' 'https://api.com'
