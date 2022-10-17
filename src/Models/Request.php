@@ -3,6 +3,7 @@
 namespace Shift\CurlConverter\Models;
 
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 class Request
 {
@@ -35,6 +36,10 @@ class Request
     public static function create(array $data): self
     {
         $url = parse_url($data['url']);
+
+        if ($url === false) {
+            throw new InvalidArgumentException(sprintf('The "%s" URL is invalid.', $data['url']));
+        }
 
         $request = new self(self::buildUrl($url), $data['method'] ?? 'GET');
 

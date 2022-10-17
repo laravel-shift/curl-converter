@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Console\Commands;
 
+use InvalidArgumentException;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
@@ -18,6 +19,13 @@ class CurlCommandTest extends TestCase
 
         $this->assertSame(0, $code);
         $this->assertSame($this->fixture($fixture . '.out'), $output);
+    }
+
+    public function test_it_throw_exception_when_for_invalid_url()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        Artisan::call('shift:curl -X GET "https://{domain:port}/api/{id}/"');
     }
 
     public function curlCommandFixtures()
