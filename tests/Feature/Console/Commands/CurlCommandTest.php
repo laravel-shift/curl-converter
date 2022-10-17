@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Console\Commands;
 
-use InvalidArgumentException;
 use Illuminate\Support\Facades\Artisan;
+use InvalidArgumentException;
 use Tests\TestCase;
 
 class CurlCommandTest extends TestCase
@@ -24,6 +24,7 @@ class CurlCommandTest extends TestCase
     public function test_it_throw_exception_when_for_invalid_url()
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The "https://{domain:port}/api/{id}/" URL is invalid.');
 
         Artisan::call('shift:curl -X GET "https://{domain:port}/api/{id}/"');
     }
