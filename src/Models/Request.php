@@ -52,9 +52,10 @@ class Request
                 ->mapWithKeys(function ($header) {
                     if (!str_contains($header, ':')) {
                         throw new InvalidArgumentException(
-                            sprintf('The "%s" header  must be key/value pair separated by ":".', $header)
+                            sprintf('The "%s" header must be key/value pair separated by ":".', $header)
                         );
                     }
+
                     [$key, $value] = explode(':', $header, 2);
 
                     return [trim($key) => self::convertDataType(trim($value))];
