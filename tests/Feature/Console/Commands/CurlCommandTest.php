@@ -32,7 +32,7 @@ class CurlCommandTest extends TestCase
     public function test_it_throw_exception_when_for_invalid_headers()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The "foo" header  must be key/value pair separated by ":".');
+        $this->expectExceptionMessage('The "foo" header must be a key/value pair separated by ":".');
 
         Artisan::call("shift:curl https://example.com --header 'foo'");
     }
