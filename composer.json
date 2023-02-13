@@ -2,16 +2,22 @@
     "name": "laravel-shift/curl-converter",
     "description": "A command line tool to convert curl requests to Laravel HTTP requests.",
     "type": "library",
-    "keywords": ["curl", "converter", "http", "laravel", "shift"],
+    "keywords": [
+        "curl",
+        "converter",
+        "http",
+        "laravel",
+        "shift"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "illuminate/console": "^9.0",
-        "illuminate/support": "^9.0",
+        "illuminate/console": "^9.0|^10.0",
+        "illuminate/support": "^9.0|^10.0",
         "symfony/var-exporter": "^6.0"
     },
     "require-dev": {
-        "laravel/pint": "^1.1",
+        "laravel/pint": "^1.1|^1.0",
         "mockery/mockery": "^1.4.4",
         "orchestra/testbench": "^7.0",
         "phpunit/phpunit": "^9.5.10"
