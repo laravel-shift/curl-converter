@@ -27,6 +27,8 @@ class Request
 
     private ?int $connectTimeout = null;
 
+    private bool $insecure = false;
+
     private function __construct($url, $method)
     {
         $this->url = $url;
@@ -106,6 +108,10 @@ class Request
             $request->connectTimeout = $data['connectTimeout'];
         }
 
+        if ($data['insecure']) {
+            $request->insecure = true;
+        }
+
         return $request;
     }
 
@@ -172,6 +178,11 @@ class Request
     public function connectTimeout(): int
     {
         return $this->connectTimeout;
+    }
+
+    public function isInsecure(): bool
+    {
+        return $this->insecure;
     }
 
     private static function convertDataType(string $value)

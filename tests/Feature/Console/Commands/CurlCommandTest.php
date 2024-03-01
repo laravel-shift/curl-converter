@@ -61,6 +61,7 @@ class CurlCommandTest extends TestCase
             'Missing URL scheme' => ['missing-url-scheme'],
             'GET request with compressed flag' => ['with-compressed-option'],
             'GET request with insecure flag' => ['with-insecure-option'],
+            'GET request with short k flag' => ['with-insecure-k-option'],
             'Request with raw data' => ['with-raw-data'],
             'POST request with mixed data' => ['raw-data-mixed'],
         ];
