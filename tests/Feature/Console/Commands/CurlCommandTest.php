@@ -63,6 +63,9 @@ class CurlCommandTest extends TestCase
             'GET request with insecure flag' => ['with-insecure-option'],
             'Request with raw data' => ['with-raw-data'],
             'POST request with mixed data' => ['raw-data-mixed'],
+            'Request with cert (path only)' => ['with-cert-path-only'],
+            'Request with cert (path and password)' => ['with-cert-path-and-password'],
+            'Request with cert and key' => ['with-cert-and-key'],
         ];
     }
 

@@ -27,6 +27,8 @@ class Request
 
     private ?int $connectTimeout = null;
 
+    private array $options = [];
+
     private function __construct($url, $method)
     {
         $this->url = $url;
@@ -106,6 +108,20 @@ class Request
             $request->connectTimeout = $data['connectTimeout'];
         }
 
+        if (isset($data['cert'])) {
+            @[$certificate, $password] = explode(':', $data['cert'], 2);
+
+            if (isset($password)) {
+                $request->options['cert'] = [$certificate, $password];
+            } else {
+                $request->options['cert'] = $certificate;
+            }
+        }
+
+        if (isset($data['key'])) {
+            $request->options['ssl_key'] = $data['key'];
+        }
+
         return $request;
     }
 
@@ -172,6 +188,11 @@ class Request
     public function connectTimeout(): int
     {
         return $this->connectTimeout;
+    }
+
+    public function options(): array
+    {
+        return $this->options;
     }
 
     private static function convertDataType(string $value)
