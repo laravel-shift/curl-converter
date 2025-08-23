@@ -2,16 +2,16 @@
 
 namespace Tests\Feature\Console\Commands;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Support\Facades\Artisan;
 use InvalidArgumentException;
 use Tests\TestCase;
 
 class CurlCommandTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider curlCommandFixtures
-     */
+    #[Test]
+    #[DataProvider('curlCommandFixtures')]
     public function it_converts_curl_requests_to_http_client_code($fixture)
     {
         $code = Artisan::call('shift:' . $this->fixture($fixture . '.in'));
