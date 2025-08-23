@@ -7,7 +7,7 @@ use Shift\CurlConverter\Support\HttpCall;
 
 class CurlCommand extends Command
 {
-    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--data-raw=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|silent} {--u|user=} {--L|location} {--compressed} {--insecure} {url}';
+    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--data-raw=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|curl-silent} {--u|user=} {--L|location} {--compressed} {--insecure} {url}';
 
     protected $description = 'Convert a UNIX curl request to an HTTP Client request';
 
@@ -38,7 +38,7 @@ class CurlCommand extends Command
             'connectTimeout' => $this->option('connect-timeout'),
             'maxTimeout' => $this->option('max-timeout'),
             'retry' => $this->option('retry'),
-            'silent' => $this->option('silent'),
+            'silent' => $this->option('curl-silent'),
             'user' => $this->option('user'),
             'compressed' => $this->option('compressed'),
             'insecure' => $this->option('insecure'),
