@@ -4,15 +4,15 @@ namespace Tests\Feature\Console\Commands;
 
 use Illuminate\Support\Facades\Artisan;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class CurlCommandTest extends TestCase
+final class CurlCommandTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider curlCommandFixtures
-     */
-    public function it_converts_curl_requests_to_http_client_code($fixture)
+    #[Test]
+    #[DataProvider('curlCommandFixtures')]
+    public function it_converts_curl_requests_to_http_client_code($fixture): void
     {
         $code = Artisan::call('shift:' . $this->fixture($fixture . '.in'));
         $output = trim(Artisan::output());
@@ -21,7 +21,7 @@ class CurlCommandTest extends TestCase
         $this->assertSame($this->fixture($fixture . '.out'), $output);
     }
 
-    public function test_it_throw_exception_when_for_invalid_url()
+    public function test_it_throw_exception_when_for_invalid_url(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The "https://{domain:port}/api/{id}/" URL is invalid.');
@@ -29,7 +29,7 @@ class CurlCommandTest extends TestCase
         Artisan::call('shift:curl -X GET "https://{domain:port}/api/{id}/"');
     }
 
-    public function test_it_throw_exception_when_for_invalid_headers()
+    public function test_it_throw_exception_when_for_invalid_headers(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The "foo" header must be a key/value pair separated by ":".');
@@ -37,7 +37,7 @@ class CurlCommandTest extends TestCase
         Artisan::call("shift:curl https://example.com --header 'foo'");
     }
 
-    public function curlCommandFixtures()
+    public static function curlCommandFixtures(): array
     {
         return [
             'GET request' => ['basic-get'],
