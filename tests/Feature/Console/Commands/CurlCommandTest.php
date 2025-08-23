@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use InvalidArgumentException;
 use Tests\TestCase;
 
-class CurlCommandTest extends TestCase
+final class CurlCommandTest extends TestCase
 {
     #[Test]
     #[DataProvider('curlCommandFixtures')]
