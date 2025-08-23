@@ -37,7 +37,7 @@ class CurlCommandTest extends TestCase
         Artisan::call("shift:curl https://example.com --header 'foo'");
     }
 
-    public function curlCommandFixtures()
+    public static function curlCommandFixtures()
     {
         return [
             'GET request' => ['basic-get'],
