@@ -93,6 +93,10 @@ class HttpCall
             $options[] = 'connectTimeout(' . $request->connectTimeout() . ')';
         }
 
+        if (!empty($request->options())) {
+            $options[] = 'withOptions(' . self::prettyPrintArray($request->options()) . ')';
+        }
+
         if ($request->isInsecure()) {
             $options[] = 'withoutVerifying()';
         }

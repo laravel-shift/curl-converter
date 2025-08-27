@@ -1,0 +1,5 @@
+Http::withOptions([
+        'cert' => '/path/to/cert',
+        'ssl_key' => '/path/to/key',
+    ])
+    ->get('https://example.com');
