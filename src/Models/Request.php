@@ -7,29 +7,29 @@ use InvalidArgumentException;
 
 class Request
 {
-    private string $url;
-
-    private string $method;
-
-    private array $headers = [];
+    private ?int $connectTimeout = null;
 
     private array $data = [];
 
-    private bool $rawData = false;
+    private array $headers = [];
 
-    private bool $multipartFormData = false;
-
-    private ?string $username = null;
-
-    private ?string $password = null;
+    private bool $insecure = false;
 
     private ?int $maxTimeout = null;
 
-    private ?int $connectTimeout = null;
+    private string $method;
 
-    private array $options = [];
+    private bool $multipartFormData = false;
 
-    private bool $insecure = false;
+    private array $guzzleOptions = [];
+
+    private ?string $password = null;
+
+    private bool $rawData = false;
+
+    private string $url;
+
+    private ?string $username = null;
 
     private function __construct($url, $method)
     {
@@ -114,14 +114,14 @@ class Request
             @[$certificate, $password] = explode(':', $data['cert'], 2);
 
             if (isset($password)) {
-                $request->options['cert'] = [$certificate, $password];
+                $request->guzzleOptions['cert'] = [$certificate, $password];
             } else {
-                $request->options['cert'] = $certificate;
+                $request->guzzleOptions['cert'] = $certificate;
             }
         }
 
         if (isset($data['key'])) {
-            $request->options['ssl_key'] = $data['key'];
+            $request->guzzleOptions['ssl_key'] = $data['key'];
         }
 
         if ($data['insecure']) {
@@ -131,19 +131,14 @@ class Request
         return $request;
     }
 
+    public function connectTimeout(): int
+    {
+        return $this->connectTimeout;
+    }
+
     public function data(): array
     {
         return $this->data;
-    }
-
-    public function hasUsernameOrPassword(): bool
-    {
-        return isset($this->username) || isset($this->password);
-    }
-
-    public function hasMaxTimeout(): bool
-    {
-        return isset($this->maxTimeout);
     }
 
     public function hasConnectTimeout(): bool
@@ -151,24 +146,24 @@ class Request
         return isset($this->connectTimeout);
     }
 
+    public function hasMaxTimeout(): bool
+    {
+        return isset($this->maxTimeout);
+    }
+
+    public function hasUsernameOrPassword(): bool
+    {
+        return isset($this->username) || isset($this->password);
+    }
+
     public function headers(): array
     {
         return $this->headers;
     }
 
-    public function isRawData(): bool
+    public function isInsecure(): bool
     {
-        return $this->rawData;
-    }
-
-    public function method(): string
-    {
-        return $this->method;
-    }
-
-    public function url(): string
-    {
-        return $this->url;
+        return $this->insecure;
     }
 
     public function isMultipartFormData(): bool
@@ -176,14 +171,9 @@ class Request
         return $this->multipartFormData;
     }
 
-    public function username(): string
+    public function isRawData(): bool
     {
-        return $this->username ?? '';
-    }
-
-    public function password(): string
-    {
-        return $this->password ?? '';
+        return $this->rawData;
     }
 
     public function maxTimeout(): int
@@ -191,19 +181,44 @@ class Request
         return $this->maxTimeout;
     }
 
-    public function connectTimeout(): int
+    public function method(): string
     {
-        return $this->connectTimeout;
+        return $this->method;
     }
 
     public function options(): array
     {
-        return $this->options;
+        return $this->guzzleOptions;
     }
 
-    public function isInsecure(): bool
+    public function password(): string
     {
-        return $this->insecure;
+        return $this->password ?? '';
+    }
+
+    public function url(): string
+    {
+        return $this->url;
+    }
+
+    public function username(): string
+    {
+        return $this->username ?? '';
+    }
+
+    private static function buildUrl(array $url): string
+    {
+        $output = ($url['scheme'] ?? 'https') . '://' . ($url['host'] ?? '');
+
+        if (isset($url['port'])) {
+            $output .= ':' . $url['port'];
+        }
+
+        if (isset($url['path'])) {
+            $output .= $url['path'];
+        }
+
+        return $output;
     }
 
     private static function convertDataType(string $value)
@@ -221,20 +236,5 @@ class Request
         });
 
         return $data;
-    }
-
-    private static function buildUrl(array $url): string
-    {
-        $output = ($url['scheme'] ?? 'https') . '://' . ($url['host'] ?? '');
-
-        if (isset($url['port'])) {
-            $output .= ':' . $url['port'];
-        }
-
-        if (isset($url['path'])) {
-            $output .= $url['path'];
-        }
-
-        return $output;
     }
 }

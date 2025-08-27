@@ -26,24 +26,24 @@ class CurlCommand extends Command
     private function gatherOptions()
     {
         return [
-            'method' => $this->option('get') ? 'GET' : $this->option('request'),
-            'url' => $this->argument('url'),
-            'headers' => $this->option('header'),
-            'data' => $this->option('data'),
-            'rawData' => $this->option('data-raw'),
-            'dataUrlEncode' => $this->option('data-urlencode'),
-            'fields' => $this->option('form'),
-            'digest' => $this->option('digest'),
             'basic' => $this->option('basic'),
+            'cert' => $this->option('cert'),
+            'compressed' => $this->option('compressed'),
             'connectTimeout' => $this->option('connect-timeout'),
+            'data' => $this->option('data'),
+            'dataUrlEncode' => $this->option('data-urlencode'),
+            'digest' => $this->option('digest'),
+            'fields' => $this->option('form'),
+            'headers' => $this->option('header'),
+            'insecure' => $this->option('insecure'),
+            'key' => $this->option('key'),
             'maxTimeout' => $this->option('max-timeout'),
+            'method' => $this->option('get') ? 'GET' : $this->option('request'),
+            'rawData' => $this->option('data-raw'),
             'retry' => $this->option('retry'),
             'silent' => $this->option('curl-silent'),
+            'url' => $this->argument('url'),
             'user' => $this->option('user'),
-            'compressed' => $this->option('compressed'),
-            'insecure' => $this->option('insecure'),
-            'cert' => $this->option('cert'),
-            'key' => $this->option('key'),
         ];
     }
 }
