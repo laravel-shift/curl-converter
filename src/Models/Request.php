@@ -123,7 +123,7 @@ class Request
         if (isset($data['key'])) {
             $request->options['ssl_key'] = $data['key'];
         }
-      
+
         if ($data['insecure']) {
             $request->insecure = true;
         }
