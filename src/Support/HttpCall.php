@@ -97,6 +97,10 @@ class HttpCall
             $options[] = 'withOptions(' . self::prettyPrintArray($request->options()) . ')';
         }
 
+        if ($request->isInsecure()) {
+            $options[] = 'withoutVerifying()';
+        }
+
         if (empty($options)) {
             return '';
         }

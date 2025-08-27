@@ -29,6 +29,8 @@ class Request
 
     private array $options = [];
 
+    private bool $insecure = false;
+
     private function __construct($url, $method)
     {
         $this->url = $url;
@@ -121,6 +123,10 @@ class Request
         if (isset($data['key'])) {
             $request->options['ssl_key'] = $data['key'];
         }
+      
+        if ($data['insecure']) {
+            $request->insecure = true;
+        }
 
         return $request;
     }
@@ -193,6 +199,11 @@ class Request
     public function options(): array
     {
         return $this->options;
+    }
+
+    public function isInsecure(): bool
+    {
+        return $this->insecure;
     }
 
     private static function convertDataType(string $value)
