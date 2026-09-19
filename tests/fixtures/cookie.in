@@ -1,0 +1,1 @@
+curl https://api.com --cookie 'a=1; b=2'

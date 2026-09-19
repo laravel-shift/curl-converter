@@ -7,7 +7,7 @@ use Shift\CurlConverter\Support\HttpCall;
 
 class CurlCommand extends Command
 {
-    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--data-raw=*} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|curl-silent} {--u|user=} {--L|location} {--compressed} {--k|insecure} {--E|cert=} {--key=} {url}';
+    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--data-raw=*} {--data-binary=*} {--b|cookie=} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|curl-silent} {--u|user=} {--L|location} {--compressed} {--k|insecure} {--E|cert=} {--key=} {--url=} {url?}';
 
     protected $description = 'Convert a UNIX curl request to an HTTP Client request';
 
@@ -34,16 +34,27 @@ class CurlCommand extends Command
             'dataUrlEncode' => $this->option('data-urlencode'),
             'digest' => $this->option('digest'),
             'fields' => $this->option('form'),
-            'headers' => $this->option('header'),
+            'headers' => $this->gatherHeaders(),
             'insecure' => $this->option('insecure'),
             'key' => $this->option('key'),
             'maxTimeout' => $this->option('max-timeout'),
             'method' => $this->option('get') ? 'GET' : $this->option('request'),
-            'rawData' => $this->option('data-raw'),
+            'rawData' => array_merge($this->option('data-raw'), $this->option('data-binary')),
             'retry' => $this->option('retry'),
             'silent' => $this->option('curl-silent'),
-            'url' => $this->argument('url'),
+            'url' => $this->argument('url') ?? $this->option('url'),
             'user' => $this->option('user'),
         ];
+    }
+
+    private function gatherHeaders(): array
+    {
+        $headers = $this->option('header');
+
+        if ($this->option('cookie')) {
+            $headers[] = 'Cookie: ' . $this->option('cookie');
+        }
+
+        return $headers;
     }
 }

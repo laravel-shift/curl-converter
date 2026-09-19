@@ -67,6 +67,9 @@ final class CurlCommandTest extends TestCase
             'Request with cert (path only)' => ['with-cert-path-only'],
             'Request with cert (path and password)' => ['with-cert-path-and-password'],
             'Request with cert and key' => ['with-cert-and-key'],
+            'Request with url option' => ['url-option'],
+            'Request with data-binary' => ['data-binary'],
+            'Request with cookie' => ['cookie'],
         ];
     }
 

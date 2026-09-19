@@ -1,0 +1,4 @@
+Http::withHeaders([
+        'Cookie' => 'a=1; b=2',
+    ])
+    ->get('https://api.com');
