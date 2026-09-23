@@ -70,6 +70,7 @@ final class CurlCommandTest extends TestCase
             'Request with url option' => ['url-option'],
             'Request with data-binary' => ['data-binary'],
             'Request with cookie' => ['cookie'],
+            'Request with json' => ['json'],
         ];
     }
 

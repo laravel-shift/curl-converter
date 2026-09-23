@@ -1,0 +1,3 @@
+Http::withBody('{"foo":"bar"}')
+    ->acceptJson()
+    ->post('https://api.com');

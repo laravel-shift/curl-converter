@@ -7,7 +7,7 @@ use Shift\CurlConverter\Support\HttpCall;
 
 class CurlCommand extends Command
 {
-    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--data-raw=*} {--data-binary=*} {--b|cookie=} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|curl-silent} {--u|user=} {--L|location} {--compressed} {--k|insecure} {--E|cert=} {--key=} {--url=} {url?}';
+    protected $signature = 'shift:curl {--X|request=} {--G|get} {--H|header=*} {--d|data=*} {--data-urlencode=*} {--data-raw=*} {--data-binary=*} {--json=*} {--b|cookie=} {--F|form=*} {--digest} {--basic} {--connect-timeout=} {--max-timeout=} {--retry=} {--s|curl-silent} {--u|user=} {--L|location} {--compressed} {--k|insecure} {--E|cert=} {--key=} {--url=} {url?}';
 
     protected $description = 'Convert a UNIX curl request to an HTTP Client request';
 
@@ -39,7 +39,7 @@ class CurlCommand extends Command
             'key' => $this->option('key'),
             'maxTimeout' => $this->option('max-timeout'),
             'method' => $this->option('get') ? 'GET' : $this->option('request'),
-            'rawData' => array_merge($this->option('data-raw'), $this->option('data-binary')),
+            'rawData' => $this->gatherRawData(),
             'retry' => $this->option('retry'),
             'silent' => $this->option('curl-silent'),
             'url' => $this->argument('url') ?? $this->option('url'),
@@ -51,10 +51,25 @@ class CurlCommand extends Command
     {
         $headers = $this->option('header');
 
+        if ($this->option('json')) {
+            array_unshift($headers, 'Content-Type: application/json', 'Accept: application/json');
+        }
+
         if ($this->option('cookie')) {
             $headers[] = 'Cookie: ' . $this->option('cookie');
         }
 
         return $headers;
+    }
+
+    private function gatherRawData(): array
+    {
+        $data = array_merge($this->option('data-raw'), $this->option('data-binary'));
+
+        if ($this->option('json')) {
+            $data[] = implode('', $this->option('json'));
+        }
+
+        return $data;
     }
 }

@@ -1,0 +1,1 @@
+curl --json '{"foo":"bar"}' https://api.com
